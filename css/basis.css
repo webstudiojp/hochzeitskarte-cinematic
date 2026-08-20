@@ -1,0 +1,142 @@
+/* =========================================================
+   BASIS — Token, Schrift, Grundraster
+   Die Seite hat genau eine Akzentfarbe: warmes Messing.
+   Alles andere ist Tiefe, nicht Farbe.
+   ========================================================= */
+
+@font-face{font-family:'Cormorant';src:url('../assets/fonts/Cormorant-latin.woff2') format('woff2');
+  font-weight:300 500;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Cormorant';src:url('../assets/fonts/Cormorant-latinext.woff2') format('woff2');
+  font-weight:300 500;font-style:normal;font-display:swap;
+  unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'Manrope';src:url('../assets/fonts/Manrope-latin.woff2') format('woff2');
+  font-weight:300 700;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'Manrope';src:url('../assets/fonts/Manrope-latinext.woff2') format('woff2');
+  font-weight:300 700;font-style:normal;font-display:swap;
+  unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+
+:root{
+  /* --- Flaechen. Nie reines Weiss, nie reines Schwarz. --------------
+     --grund ist derselbe Wert, auf den der Film am Ende ausblendet.
+     Wird er hier geaendert, muss bin/film-bauen.sh mitgeaendert werden,
+     sonst blitzt beim Uebergang Video -> Seite eine Kante auf. */
+  --grund:        #f2ece1;
+  --grund-hoch:   #f8f4ec;   /* die Einladung, das gedruckte Blatt */
+  --grund-tief:   #e6dccb;   /* Countdown, wenn die Seite dunkler wird */
+  --nacht:        #1a1611;   /* Finale und Fuss */
+  --nacht-hoch:   #241e17;
+
+  /* --- Schrift --- */
+  --tinte:        #332e26;   /* 11.4:1 auf --grund */
+  --tinte-leise:  #635a4c;   /*  5.8:1 auf --grund, 5.0:1 auf --grund-tief */
+  --nacht-tinte:  #f2ece1;
+  --nacht-leise:  #a99c88;
+  --nacht-fein:   #8b8172;   /*  4.7:1 auf --nacht  */
+
+  /* --- Der eine Akzent: Messing. Hoechstens 5 % der Flaeche. -------
+     --akzent traegt Flaechen und Linien, --akzent-text ist die dunkle
+     Variante fuer alles, was gelesen werden muss (5.3:1 auf --grund). */
+  --akzent:       #a98449;
+  --akzent-text:  #785c2e;
+  --akzent-hell:  #c8a96a;   /* nur auf --nacht, dort 8:1 */
+
+  /* Salbei ist kein zweiter Akzent, sondern ein getoentes Neutral.
+     Es faerbt Flaechen und Baender, nie Text. */
+  --salbei:       #8e9a86;
+
+  --linie:        #d8cdb9;
+  --linie-nacht:  #3a3125;
+
+  /* --- Typografische Skala, Ratio 1.25, Basis 17px --- */
+  --t-xs:  0.694rem;
+  --t-s:   0.8rem;
+  --t-m:   1rem;
+  --t-l:   1.25rem;
+  --t-xl:  1.563rem;
+  --t-2xl: 1.953rem;
+  --t-3xl: 2.441rem;
+  --t-4xl: 3.052rem;
+  --t-5xl: 3.815rem;
+
+  /* --- Abstaende. Eng gruppieren, grosszuegig trennen. --- */
+  --s-1: 0.5rem;  --s-2: 0.75rem; --s-3: 1.25rem; --s-4: 2rem;
+  --s-5: 3.25rem; --s-6: 5rem;    --s-7: 8rem;    --s-8: 12rem;
+
+  /* --- Bewegungssignatur --- */
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart:   cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-cine: cubic-bezier(0.83, 0, 0.17, 1);
+
+  --mass: min(100vw - 2.5rem, 62rem);   /* aeussere Bahn */
+  --spalte: min(100vw - 2.5rem, 34rem); /* Lesebahn, unter 66ch */
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--grund);
+  color:var(--tinte);
+  font:300 17px/1.65 'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-synthesis-weight:none;
+  overflow-x:hidden;
+}
+
+h1,h2,h3,p,figure,blockquote{margin:0}
+img,video{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit}
+
+/* Anzeige-Schrift: eng gesetzt, negatives Sperren, wie im Satzspiegel */
+.zeige{
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:300;
+  line-height:1.02;
+  letter-spacing:-0.028em;
+  text-wrap:balance;
+}
+p{text-wrap:pretty}
+
+/* Die kleinen Kapitaelchen-Marken ueber jedem Abschnitt.
+   Sie sind die einzige Stelle, an der Text gesperrt wird. */
+.marke{
+  font-size:var(--t-xs);
+  font-weight:500;
+  letter-spacing:0.34em;
+  text-transform:uppercase;
+  color:var(--akzent-text);
+}
+.nacht .marke{color:var(--akzent-hell)}
+
+.lauf{max-width:var(--spalte)}
+.lauf p + p{margin-top:var(--s-3)}
+
+/* Feine Trennlinie statt Kasten */
+.strich{height:1px;background:var(--linie);border:0;margin:0}
+
+/* --- Die letzten zehn Prozent ------------------------------------ */
+::selection{background:var(--akzent);color:var(--grund-hoch)}
+:focus-visible{
+  outline:2px solid var(--akzent-text);
+  outline-offset:3px;
+  border-radius:1px;
+}
+html{scrollbar-color:var(--linie) var(--grund);scrollbar-width:thin}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--grund)}
+::-webkit-scrollbar-thumb{background:var(--linie);border:3px solid var(--grund)}
+::-webkit-scrollbar-thumb:hover{background:var(--akzent)}
+
+.nur-fuer-screenreader{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;scroll-behavior:auto !important;
+  }
+}

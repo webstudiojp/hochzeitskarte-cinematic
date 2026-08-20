@@ -1,0 +1,589 @@
+/* =========================================================
+   SEITE — alles nach dem Film.
+
+   Der Film ist der laute Moment. Danach wird es absichtlich still:
+   eine Lesebahn, Haarlinien statt Kaesten, und nur noch zwei Stellen,
+   die wieder ueber die volle Breite gehen (Ort und Finale).
+   ========================================================= */
+
+.seite{
+  opacity:0;
+  transition:opacity .8s var(--ease-out-quart);
+}
+.seite.da{opacity:1}
+
+.abschnitt{
+  position:relative;
+  padding-inline:1.25rem;
+}
+.bahn{width:var(--mass);margin-inline:auto}
+
+/* Der vertikale Rhythmus wechselt bewusst: weite Abschnitte fuer die
+   grossen Momente, enge dort, wo nur gelesen wird. */
+.weit  {padding-block:var(--s-8)}
+.mittel{padding-block:var(--s-7)}
+.eng   {padding-block:var(--s-6)}
+
+/* Kleine Marke, darunter eine Haarlinie, die nur bis zur Schrift laeuft */
+.kopf{display:flex;align-items:center;gap:var(--s-3);margin-bottom:var(--s-4)}
+.kopf::after{content:"";flex:1;height:1px;background:var(--linie)}
+
+/* ---------- Save the Date ---------- */
+
+.datum-block{
+  display:grid;
+  grid-template-columns:1fr;
+  justify-items:start;
+}
+.datum-tag{
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:300;
+  font-size:clamp(7rem, 34vw, 17rem);
+  line-height:.78;
+  letter-spacing:-0.05em;
+  margin-left:-0.06em;      /* optisch, nicht mathematisch buendig */
+}
+.datum-monat{
+  font-family:'Cormorant',Georgia,serif;
+  font-size:clamp(2rem, 9vw, 4.2rem);
+  font-weight:300;
+  font-style:italic;
+  line-height:1;
+  letter-spacing:-0.02em;
+  color:var(--akzent-text);
+  margin-top:-.14em;
+  margin-left:.06em;
+}
+.datum-jahr{
+  font-size:var(--t-s);
+  letter-spacing:0.62em;
+  margin-top:var(--s-3);
+  color:var(--tinte-leise);
+}
+.datum-ort{
+  margin-top:var(--s-4);
+  padding-top:var(--s-3);
+  border-top:1px solid var(--linie);
+  font-size:var(--t-s);
+  letter-spacing:0.16em;
+  color:var(--tinte-leise);
+  width:min(100%, 22rem);
+}
+
+/* Ein zurueckgenommener floraler Strich, kein Ornament-Teppich */
+.ranke{
+  position:absolute;
+  right:-2rem;top:8%;
+  width:min(38vw, 17rem);
+  opacity:.3;
+  stroke:var(--akzent);
+  fill:none;
+  stroke-width:1;
+  pointer-events:none;
+}
+
+/* ---------- Countdown ---------- */
+
+.countdown{
+  background:var(--grund-tief);
+  overflow:clip;
+}
+.countdown::before{
+  content:"";
+  position:absolute;inset:0;
+  background-image:url('../assets/img/countdown.webp?v=20260820205628');
+  background-size:cover;
+  background-position:center;
+  opacity:.22;
+  transform:scale(var(--zoom, 1.06));
+  transition:transform .1s linear;
+}
+.countdown > *{position:relative}
+.countdown-innen{text-align:center}
+.uhr{
+  display:flex;
+  justify-content:center;
+  gap:clamp(.7rem, 4.5vw, 2.4rem);
+  margin-block:var(--s-4) var(--s-3);
+}
+.uhr div{min-width:3.4rem}
+.uhr b{
+  display:block;
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:300;
+  font-size:clamp(2.6rem, 13vw, 5.2rem);
+  line-height:1;
+  letter-spacing:-0.03em;
+  font-variant-numeric:tabular-nums;
+}
+.uhr span{
+  display:block;
+  margin-top:var(--s-1);
+  font-size:var(--t-xs);
+  letter-spacing:0.24em;
+  text-transform:uppercase;
+  color:var(--tinte-leise);
+}
+.countdown-schluss{
+  font-family:'Cormorant',Georgia,serif;
+  font-style:italic;
+  font-size:var(--t-xl);
+  color:var(--tinte-leise);
+}
+
+/* ---------- Die Einladung: soll wie gedrucktes Papier wirken ---------- */
+
+.einladung{background:var(--grund-hoch)}
+.einladung-blatt{
+  width:min(100%, 30rem);
+  margin-inline:auto;
+  text-align:center;
+  padding-block:var(--s-4);
+}
+.einladung-blatt .zweig{
+  width:4.4rem;height:auto;margin:0 auto var(--s-4);
+  stroke:var(--akzent);fill:none;stroke-width:1;opacity:.85;
+}
+.einladung-namen{
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:300;
+  font-size:clamp(1.9rem, 8vw, 3.4rem);
+  line-height:1.08;
+  letter-spacing:-0.02em;
+}
+.einladung-text{
+  margin-top:var(--s-4);
+  font-size:var(--t-l);
+  line-height:1.85;
+  color:var(--tinte-leise);
+}
+.einladung-fuss{
+  margin-top:var(--s-5);
+  padding-top:var(--s-3);
+  border-top:1px solid var(--linie);
+  font-size:var(--t-s);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--tinte-leise);
+}
+.einladung-fuss span{display:block}
+.einladung-fuss span + span{margin-top:var(--s-1)}
+
+/* ---------- Der Tag: eine Linie, die sich beim Scrollen zeichnet ---------- */
+
+.ablauf{position:relative;margin-top:var(--s-6)}
+.ablauf-linie{
+  position:absolute;
+  left:calc(3.9rem - 1px);
+  top:.55rem;bottom:3rem;
+  width:1px;
+  background:var(--linie);
+}
+.ablauf-linie i{
+  position:absolute;inset:0;
+  display:block;
+  background:var(--akzent);
+  transform:scaleY(var(--fortschritt, 0));
+  transform-origin:50% 0;
+}
+.punkt{
+  position:relative;
+  display:grid;
+  grid-template-columns:3.9rem 1fr;
+  gap:var(--s-4);
+  padding-bottom:var(--s-6);
+}
+.punkt:last-child{padding-bottom:0}
+.punkt-zeit{
+  font-size:var(--t-s);
+  letter-spacing:0.08em;
+  color:var(--akzent-text);
+  font-variant-numeric:tabular-nums;
+  padding-top:.15rem;
+}
+.punkt-koerper{position:relative}
+.punkt-koerper::before{
+  content:"";
+  position:absolute;
+  left:calc(-1 * var(--s-4) - .22rem);
+  top:.5rem;
+  width:.44rem;height:.44rem;
+  border-radius:50%;
+  background:var(--grund);
+  border:1px solid var(--linie);
+  transition:background .5s var(--ease-out-quart), border-color .5s var(--ease-out-quart);
+}
+.punkt.erreicht .punkt-koerper::before{background:var(--akzent);border-color:var(--akzent)}
+.punkt-titel{
+  font-size:var(--t-xs);
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  margin-bottom:var(--s-2);
+}
+.punkt-text{color:var(--tinte-leise);max-width:36ch}
+.punkt-bild{
+  margin-top:var(--s-3);
+  width:min(100%, 15rem);
+  aspect-ratio:4/5;
+  object-fit:cover;
+  filter:saturate(.94);
+}
+
+/* ---------- Ort: der eine Vollbild-Moment nach dem Film ---------- */
+
+.ort{
+  position:relative;
+  min-height:86vh;
+  display:grid;
+  align-items:end;
+  overflow:clip;
+  color:var(--nacht-tinte);
+  padding-block:var(--s-6);
+}
+.ort-bild{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  transform:scale(var(--skala, 1.08));
+  will-change:transform;
+}
+/* Explizite Abdunklung statt rgba-Wildwuchs: eine Farbe, zwei Stopps */
+.ort::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(to top, #1a1611 0%, rgba(26,22,17,.72) 38%, rgba(26,22,17,.12) 100%);
+}
+.ort .bahn{position:relative;z-index:1}
+.ort-name{
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:300;
+  font-size:clamp(2.6rem, 11vw, 5rem);
+  line-height:1;
+  letter-spacing:-0.03em;
+  margin-top:var(--s-3);
+}
+.ort-adresse{
+  margin-top:var(--s-2);
+  color:var(--nacht-leise);
+  font-size:var(--t-s);
+  letter-spacing:0.12em;
+}
+.ort-knoepfe{
+  display:flex;flex-wrap:wrap;gap:var(--s-2);
+  margin-top:var(--s-4);
+}
+
+/* ---------- Knoepfe ---------- */
+
+.knopf{
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.82rem 1.5rem;
+  border:1px solid var(--linie);
+  font-size:var(--t-xs);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  text-decoration:none;
+  background:transparent;
+  transition:background .3s var(--ease-out-quart), border-color .3s var(--ease-out-quart), color .3s var(--ease-out-quart);
+}
+.knopf:hover{background:var(--akzent);border-color:var(--akzent);color:var(--grund-hoch)}
+.knopf svg{width:.95rem;height:.95rem;fill:none;stroke:currentColor;stroke-width:1.4}
+.ort .knopf{border-color:rgba(242,236,225,.34)}
+.ort .knopf:hover{background:var(--akzent-hell);border-color:var(--akzent-hell);color:var(--nacht)}
+.knopf-voll{
+  background:var(--akzent-text);border-color:var(--akzent-text);color:var(--grund-hoch);
+}
+.knopf-voll:hover{background:var(--tinte);border-color:var(--tinte)}
+
+/* ---------- Dresscode ---------- */
+
+.dress{display:grid;gap:var(--s-5);align-items:start}
+@media (min-width:56rem){
+  /* ungleiche Spuren, nicht 1fr 1fr */
+  .dress{grid-template-columns:1fr 1.55fr;gap:var(--s-6)}
+}
+.dress-bild{width:100%;aspect-ratio:4/5;object-fit:cover}
+.dress-titel{
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:300;font-style:italic;
+  font-size:clamp(2.2rem, 8vw, 3.2rem);
+  line-height:1;letter-spacing:-0.02em;
+  margin-bottom:var(--s-3);
+}
+.palette{
+  display:flex;flex-wrap:wrap;
+  gap:var(--s-3);
+  margin-top:var(--s-5);
+  padding-top:var(--s-3);
+  border-top:1px solid var(--linie);
+}
+.palette figure{margin:0;text-align:center}
+.palette i{
+  display:block;
+  width:2.9rem;height:2.9rem;
+  border-radius:50%;
+  border:1px solid var(--linie);
+}
+.palette figcaption{
+  margin-top:var(--s-1);
+  font-size:var(--t-xs);
+  letter-spacing:0.14em;
+  color:var(--tinte-leise);
+}
+
+/* ---------- Gut zu wissen: editoriale Zeilen, keine Karten ---------- */
+
+.wissen{border-top:1px solid var(--linie)}
+.wissen-zeile{
+  display:grid;
+  gap:var(--s-2);
+  padding-block:var(--s-4);
+  border-bottom:1px solid var(--linie);
+}
+@media (min-width:52rem){
+  .wissen-zeile{grid-template-columns:14rem 1fr;gap:var(--s-5)}
+}
+.wissen-zeile h3{
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:400;
+  font-size:var(--t-xl);
+  letter-spacing:-0.01em;
+}
+.wissen-zeile p{color:var(--tinte-leise);max-width:58ch}
+
+/* ---------- Galerie: unterschiedliche Geschwindigkeiten ---------- */
+
+.galerie{display:grid;gap:var(--s-3)}
+@media (min-width:46rem){
+  .galerie{grid-template-columns:1.35fr 1fr;gap:var(--s-4) var(--s-4)}
+  .galerie figure.gross{grid-column:span 1}
+  .galerie figure:nth-child(4){margin-top:calc(-1 * var(--s-6))}
+  .galerie figure:nth-child(6){margin-top:calc(-1 * var(--s-5))}
+}
+.galerie figure{margin:0;overflow:clip}
+.galerie img{
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  transform:translate3d(0, var(--verschub, 0px), 0) scale(1.06);
+  will-change:transform;
+}
+.galerie figure.gross img{aspect-ratio:3/4}
+
+/* ---------- Rueckmeldung ---------- */
+
+.rsvp{background:var(--grund-hoch)}
+.rsvp-innen{width:min(100%, 34rem);margin-inline:auto;text-align:center}
+.rsvp-frage{
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:300;
+  font-size:clamp(2rem, 8.5vw, 3rem);
+  line-height:1.06;letter-spacing:-0.02em;
+  margin-block:var(--s-3) var(--s-5);
+}
+.schritt{display:none}
+.schritt.aktiv{display:block;animation:auftritt .7s var(--ease-out-expo) both}
+@keyframes auftritt{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+.wahl-paar{display:grid;gap:var(--s-2)}
+@media (min-width:34rem){.wahl-paar{grid-template-columns:1fr 1fr;gap:var(--s-3)}}
+.wahl{
+  padding:var(--s-4) var(--s-3);
+  border:1px solid var(--linie);
+  font-family:'Cormorant',Georgia,serif;
+  font-size:var(--t-xl);
+  letter-spacing:-0.01em;
+  background:transparent;
+  transition:border-color .3s var(--ease-out-quart), background .3s var(--ease-out-quart);
+}
+.wahl:hover{border-color:var(--akzent);background:rgba(169,132,73,.06)}
+.wahl[aria-pressed="true"]{border-color:var(--akzent-text);background:rgba(169,132,73,.12)}
+
+.feld{text-align:left;margin-bottom:var(--s-3)}
+.feld label{
+  display:block;
+  font-size:var(--t-xs);
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--tinte-leise);
+  margin-bottom:var(--s-1);
+}
+.feld input,.feld textarea{
+  width:100%;
+  padding:.85rem .9rem;
+  font:inherit;
+  color:var(--tinte);
+  background:var(--grund);
+  border:1px solid var(--linie);
+  border-radius:0;
+  transition:border-color .25s var(--ease-out-quart);
+}
+.feld input:focus,.feld textarea:focus{border-color:var(--akzent);outline:none}
+.feld input::placeholder,.feld textarea::placeholder{color:#7d7263}
+.feld textarea{min-height:6.5rem;resize:vertical}
+.feld .fehler{
+  display:none;margin-top:var(--s-1);
+  font-size:var(--t-s);color:#8c3a2a;
+}
+.feld.hat-fehler input,.feld.hat-fehler textarea{border-color:#8c3a2a}
+.feld.hat-fehler .fehler{display:block}
+
+.zahlen{display:flex;gap:var(--s-2);justify-content:center;flex-wrap:wrap}
+.zahl{
+  width:3.4rem;height:3.4rem;
+  border:1px solid var(--linie);
+  font-family:'Cormorant',Georgia,serif;
+  font-size:var(--t-xl);
+  transition:border-color .25s var(--ease-out-quart), background .25s var(--ease-out-quart);
+}
+.zahl:hover{border-color:var(--akzent)}
+.zahl[aria-pressed="true"]{background:var(--akzent-text);border-color:var(--akzent-text);color:var(--grund-hoch)}
+
+.essen{display:flex;gap:var(--s-2);justify-content:center;flex-wrap:wrap;margin-bottom:var(--s-3)}
+.essen button{
+  padding:.6rem 1.1rem;
+  border:1px solid var(--linie);
+  font-size:var(--t-s);
+  letter-spacing:0.1em;
+  transition:border-color .25s var(--ease-out-quart), background .25s var(--ease-out-quart);
+}
+.essen button:hover{border-color:var(--akzent)}
+.essen button[aria-pressed="true"]{background:var(--akzent-text);border-color:var(--akzent-text);color:var(--grund-hoch)}
+
+.schritt-fuss{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--s-3);margin-top:var(--s-4);
+}
+.zurueck{
+  font-size:var(--t-xs);letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--tinte-leise);
+  border-bottom:1px solid var(--linie);
+  padding-bottom:2px;
+  transition:color .25s var(--ease-out-quart), border-color .25s var(--ease-out-quart);
+}
+.zurueck:hover{color:var(--tinte);border-color:var(--akzent)}
+.frist{font-size:var(--t-s);color:var(--tinte-leise);margin-top:var(--s-4)}
+
+.danke .zweig{width:5.5rem;margin:0 auto var(--s-4);stroke:var(--akzent);fill:none;stroke-width:1}
+.danke-satz{
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:300;
+  font-size:clamp(2.2rem, 9vw, 3.2rem);
+  line-height:1.05;letter-spacing:-0.02em;
+}
+.danke-text{margin-top:var(--s-3);color:var(--tinte-leise);font-size:var(--t-l)}
+.danke-kuerzel{
+  margin-top:var(--s-4);
+  font-family:'Cormorant',Georgia,serif;
+  font-size:var(--t-xl);
+  letter-spacing:0.3em;
+  color:var(--akzent-text);
+}
+
+/* ---------- Finale und Fuss ---------- */
+
+.finale{
+  position:relative;
+  min-height:100dvh;
+  display:grid;place-items:center;
+  overflow:clip;
+  background:var(--nacht);
+  color:var(--nacht-tinte);
+  text-align:center;
+}
+.finale video,.finale img.ersatz{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:.78;
+}
+.finale::after{
+  content:"";position:absolute;inset:0;
+  /* Der Titel steht in der Bildmitte, also muss der Schleier gerade dort
+     tragen - ein nach unten aufreissender Verlauf laesst ihn im
+     Kerzenlicht verschwinden. */
+  background:linear-gradient(to bottom, rgba(26,22,17,.58) 0%, rgba(26,22,17,.52) 45%, #1a1611 100%);
+}
+.finale-innen{position:relative;z-index:1;padding:var(--s-4)}
+.finale-namen{
+  font-family:'Cormorant',Georgia,serif;
+  font-weight:300;
+  font-size:clamp(2.4rem, 11vw, 4.4rem);
+  line-height:1.02;letter-spacing:-0.03em;
+}
+.finale-datum{
+  margin-top:var(--s-3);
+  font-size:var(--t-s);letter-spacing:0.4em;
+  color:var(--akzent-hell);
+}
+.finale-satz{
+  margin-top:var(--s-4);
+  font-family:'Cormorant',Georgia,serif;
+  font-style:italic;
+  font-size:var(--t-l);
+  color:var(--nacht-leise);
+}
+
+.fuss{
+  background:var(--nacht);
+  color:var(--nacht-leise);
+  padding-block:var(--s-5);
+  text-align:center;
+  font-size:var(--t-s);
+}
+.fuss .kuerzel{
+  font-family:'Cormorant',Georgia,serif;
+  font-size:var(--t-l);
+  letter-spacing:0.34em;
+  color:var(--nacht-tinte);
+}
+.fuss-zeilen{margin-top:var(--s-3);display:grid;gap:var(--s-1)}
+.fuss-rechtlich{display:flex;gap:var(--s-2);justify-content:center;flex-wrap:wrap}
+.fuss a{
+  color:var(--nacht-leise);
+  text-decoration:none;
+  border-bottom:1px solid var(--linie-nacht);
+  transition:color .25s var(--ease-out-quart), border-color .25s var(--ease-out-quart);
+}
+.fuss a:hover{color:var(--akzent-hell);border-color:var(--akzent-hell)}
+.fuss-klein{font-size:var(--t-xs);color:var(--nacht-fein);max-width:52ch;margin-inline:auto;line-height:1.6}
+.fuss-studio{margin-top:var(--s-3)}
+
+/* ---------- Auftritt beim Scrollen: in Leserichtung, mit Hierarchie ---------- */
+
+[data-tritt]{
+  opacity:0;
+  transform:translateY(18px);
+}
+[data-tritt].da{
+  opacity:1;transform:none;
+  transition:opacity .9s var(--ease-out-quart), transform 1.05s var(--ease-out-expo);
+  transition-delay:var(--warten, 0ms);
+}
+@media (prefers-reduced-motion:reduce){
+  [data-tritt]{opacity:1;transform:none}
+  .galerie img,.ort-bild{transform:none !important}
+}
+
+/* ---------- Der Musikknopf, nachdem der Film weg ist ---------- */
+.ton-seite{
+  position:fixed;
+  right:calc(1.1rem + env(safe-area-inset-right));
+  bottom:calc(1.1rem + env(safe-area-inset-bottom));
+  z-index:40;
+  color:var(--tinte);
+  background:rgba(242,236,225,.82);
+  border:1px solid var(--linie);
+  backdrop-filter:none;
+  box-shadow:0 2px 14px rgba(58,46,30,.14);
+}
+.ton-seite:hover{background:var(--grund-hoch);border-color:var(--akzent)}
+/* Aus heisst: durchgestrichen, nicht nur blass. */
+.ton-seite.stumm{color:var(--tinte-leise)}
+.ton-seite.stumm::after{
+  content:"";
+  position:absolute;
+  width:1.5rem;height:1px;
+  background:currentColor;
+  transform:rotate(-42deg);
+}

@@ -1,0 +1,16 @@
+Hier gehoert die Datei musik.mp3 hin.
+
+Sie startet, wenn der Gast den Umschlag antippt - vorher laesst kein
+Browser Ton zu - blendet ueber zwei Sekunden auf und laesst sich ueber
+den Notenknopf abschalten. Ohne Datei bleibt der Knopf verborgen und
+die Karte laeuft stumm; die Seite prueft das beim Laden per HEAD-Anfrage.
+
+Der Film ist 27 Sekunden lang. Ein Stueck, das nach etwa 23 Sekunden
+seinen ersten Hoehepunkt hat, trifft den Moment, in dem die Villa aus
+dem Kerzenlicht auftaucht und die Namen erscheinen.
+
+Lizenz: Nur Musik verwenden, die kommerziell nutzbar ist - CC0, eine
+gekaufte Lizenz oder eine eigene Aufnahme. GEMA-pflichtige Stuecke auf
+einer oeffentlich erreichbaren Seite sind teuer und angreifbar.
+
+Lautstaerke steht in js/inhalt.js unter musik.lautstaerke (derzeit 0.38).

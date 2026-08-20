@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sophie &amp; Alexander — Wir heiraten</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Sophie und Alexander heiraten am 24. August 2027 in Düsseldorf.">
+
+<!-- Vorschau in WhatsApp, Telegram, iMessage. og:image braucht eine
+     vollstaendige Adresse - relative Pfade ignorieren die Messenger.
+     Bei einem neuen Projekt hier die eigene Domain eintragen. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sophie &amp; Alexander">
+<meta property="og:title" content="Sophie &amp; Alexander — Wir heiraten">
+<meta property="og:description" content="24. August 2027 · Düsseldorf. Hier ist unsere Einladung.">
+<meta property="og:url" content="https://webstudiojp.github.io/hochzeitskarte-cinematic/">
+<meta property="og:image" content="https://webstudiojp.github.io/hochzeitskarte-cinematic/assets/img/vorschau.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Weiße Rosen und Kerzen auf einer gedeckten Hochzeitstafel">
+<meta property="og:locale" content="de_DE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f2ece1">
+
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Cormorant-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/Manrope-latin.woff2" crossorigin>
+<link rel="stylesheet" href="css/basis.css?v=20260820205628">
+<link rel="stylesheet" href="css/film.css?v=20260820205628">
+<link rel="stylesheet" href="css/seite.css?v=20260820205628">
+</head>
+<body>
+
+<audio id="musik" loop preload="none"></audio>
+
+<!-- ================= BÜHNE: Umschlag und Film ================= -->
+<div class="buehne" id="buehne">
+
+  <!-- Phase 1 -->
+  <div class="umschlag-szene" id="umschlag-szene">
+    <button class="umschlag" id="umschlag" type="button"
+            aria-label="Einladung öffnen">
+      <svg viewBox="0 0 600 420" role="img" aria-hidden="true">
+        <defs>
+          <linearGradient id="papier" x1="0" y1="0" x2="0.3" y2="1">
+            <stop offset="0"   stop-color="#fbf7ef"/>
+            <stop offset="1"   stop-color="#efe6d5"/>
+          </linearGradient>
+          <linearGradient id="lasche-ton" x1="0" y1="0" x2="0.2" y2="1">
+            <stop offset="0"   stop-color="#f7f1e5"/>
+            <stop offset="1"   stop-color="#e9dfcc"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Rueckwand -->
+        <rect x="30" y="110" width="540" height="280" fill="#e7ddca"/>
+
+        <!-- Das Blatt. Es faehrt heraus und wird am Ende zur Kamera. -->
+        <g class="karte-blatt">
+          <rect x="72" y="126" width="456" height="250" fill="#faf6ee"/>
+          <!-- Geprägte weiße Rose: nur Licht und Schatten, keine Farbe -->
+          <g transform="translate(300 251)" stroke="#d9cfbc" fill="none" stroke-width="1.6" stroke-linecap="round">
+            <path d="M0 -7 a7 7 0 1 1 -0.1 0"/>
+            <path d="M0 -13 a13 13 0 1 1 -0.2 0" opacity=".9"/>
+            <path d="M-19 -3 a19 19 0 1 0 19 -19" opacity=".8"/>
+            <path d="M25 4 a25 25 0 1 1 -14 -22" opacity=".65"/>
+            <path d="M-31 6 a31 31 0 1 0 12 -27" opacity=".5"/>
+            <path d="M-44 20 c-6 -22 6 -42 26 -48" opacity=".38"/>
+            <path d="M46 22 c7 -22 -4 -43 -24 -50" opacity=".38"/>
+          </g>
+        </g>
+
+        <!-- Vorderseite mit Lasche -->
+        <g class="umschlag-huelle">
+          <rect x="30" y="110" width="540" height="280" fill="url(#papier)"/>
+          <path class="lasche" d="M30 110 L300 262 L570 110 Z" fill="url(#lasche-ton)" stroke="#e0d5c0" stroke-width="1"/>
+          <text x="300" y="303" text-anchor="middle" fill="#332e26"
+                font-family="Cormorant, Georgia, serif" font-size="40" font-weight="300"
+                letter-spacing="6">S &amp; A</text>
+          <text x="300" y="331" text-anchor="middle" fill="#635a4c"
+                font-family="Manrope, sans-serif" font-size="14" letter-spacing="3">Sophie &amp; Alexander</text>
+          <text x="300" y="356" text-anchor="middle" fill="#785c2e"
+                font-family="Manrope, sans-serif" font-size="11" letter-spacing="6">24 · 08 · 2027</text>
+          <rect x="30" y="110" width="540" height="280" fill="none" stroke="#ded3be" stroke-width="1"/>
+        </g>
+      </svg>
+    </button>
+
+    <div class="umschlag-text">
+      <p class="umschlag-tipp">Tippe, um die Einladung zu öffnen</p>
+    </div>
+  </div>
+
+  <!-- Phase 2 & 3: die Fahrt -->
+  <div class="film" id="film">
+    <div class="film-fortschritt"><span id="fortschritt"></span></div>
+    <video class="film-hinten" id="film-hinten" muted playsinline preload="auto" aria-hidden="true"></video>
+    <video class="film-vorn"  id="film-vorn"  muted playsinline preload="auto"
+           poster="assets/img/film-start.webp?v=20260820205628"></video>
+
+    <div class="film-titel" id="film-titel">
+      <span class="vorspann">We’re getting married</span>
+      <span class="namen zeige">Sophie</span>
+      <span class="und">&amp;</span>
+      <span class="namen zeige">Alexander</span>
+      <span class="wann">24 · 08 · 2027</span>
+      <span class="wo">Düsseldorf</span>
+    </div>
+
+    <div class="film-knoepfe">
+      <button class="film-knopf" id="ton" type="button" aria-label="Musik einschalten" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l10-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>
+      </button>
+      <button class="film-knopf film-ueberspringen" id="ueberspringen" type="button">Überspringen</button>
+    </div>
+
+    <div class="ausklang"></div>
+  </div>
+</div>
+
+<!-- ===================== DIE SEITE ===================== -->
+<main class="seite" id="seite">
+
+  <!-- Phase 5 -->
+  <section class="abschnitt weit" aria-labelledby="std">
+    <svg class="ranke" viewBox="0 0 200 320" aria-hidden="true">
+      <path d="M100 320 C100 240 60 210 62 150 C64 96 100 70 100 10"/>
+      <path d="M100 250 C70 240 52 218 50 196 C74 196 94 218 100 250"/>
+      <path d="M100 200 C130 192 148 170 150 148 C126 148 106 170 100 200"/>
+      <path d="M100 150 C72 142 56 120 54 98 C78 98 96 120 100 150"/>
+      <circle cx="100" cy="26" r="7"/><circle cx="100" cy="26" r="13"/>
+    </svg>
+    <div class="bahn">
+      <div class="kopf"><span class="marke" id="std">Save the date</span></div>
+      <div class="datum-block">
+        <div class="datum-tag zeige" data-inhalt="paar.tag">24</div>
+        <div class="datum-monat" data-inhalt="paar.monat">August</div>
+        <div class="datum-jahr" data-inhalt="paar.jahr">2027</div>
+        <p class="datum-ort"><span data-inhalt="ort.name">Schloss Benrath</span> · <span data-inhalt="ort.stadt">Düsseldorf</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 6 -->
+  <section class="abschnitt weit countdown" id="countdown" aria-labelledby="cd">
+    <div class="bahn countdown-innen">
+      <span class="marke" id="cd">Noch</span>
+      <div class="uhr" id="uhr" role="timer" aria-live="off">
+        <div><b id="u-tage">—</b><span>Tage</span></div>
+        <div><b id="u-std">—</b><span>Stunden</span></div>
+        <div><b id="u-min">—</b><span>Minuten</span></div>
+        <div><b id="u-sek">—</b><span>Sekunden</span></div>
+      </div>
+      <p class="countdown-schluss">bis wir Ja sagen.</p>
+    </div>
+  </section>
+
+  <!-- Phase 7 -->
+  <section class="abschnitt mittel einladung" aria-labelledby="einl">
+    <div class="bahn">
+      <div class="einladung-blatt">
+        <svg class="zweig" viewBox="0 0 100 60" aria-hidden="true">
+          <path d="M4 30 H96"/>
+          <path d="M28 30 c0 -11 8 -18 18 -18 0 11 -8 18 -18 18"/>
+          <path d="M28 30 c0 11 8 18 18 18 0 -11 -8 -18 -18 -18"/>
+          <path d="M62 30 c0 -9 6 -15 14 -15 0 9 -6 15 -14 15"/>
+          <path d="M62 30 c0 9 6 15 14 15 0 -9 -6 -15 -14 -15"/>
+          <circle cx="50" cy="30" r="4"/>
+        </svg>
+        <h2 class="einladung-namen zeige" id="einl" data-inhalt="paar.namen">Sophie &amp; Alexander</h2>
+        <p class="einladung-text">
+          laden euch von Herzen ein,<br>
+          diesen besonderen Tag<br>
+          gemeinsam mit uns zu feiern.
+        </p>
+        <p class="einladung-fuss">
+          <span data-inhalt="paar.datumLang">Samstag · 24. August 2027</span>
+          <span data-inhalt="paar.stadt">Düsseldorf</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 8 -->
+  <section class="abschnitt weit" aria-labelledby="tag">
+    <div class="bahn">
+      <div class="kopf"><span class="marke">The wedding day</span></div>
+      <h2 class="zeige" id="tag" style="font-size:clamp(2.2rem,9vw,3.6rem)">Unser Tag</h2>
+      <div class="ablauf" id="ablauf">
+        <div class="ablauf-linie" aria-hidden="true"><i id="ablauf-fuellung"></i></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 9 -->
+  <section class="abschnitt ort" id="ort" aria-labelledby="venue">
+    <img class="ort-bild" id="ort-bild" src="assets/img/ort.webp?v=20260820205628" alt="Die Villa in der Abendsonne" loading="lazy" decoding="async">
+    <div class="bahn">
+      <span class="marke" id="venue">The venue</span>
+      <h2 class="ort-name zeige" data-inhalt="ort.name">Schloss Benrath</h2>
+      <p class="ort-adresse">
+        <span data-inhalt="ort.strasse">Benrather Schloßallee 104</span> ·
+        <span data-inhalt="ort.plz">40597</span> <span data-inhalt="ort.stadt">Düsseldorf</span>
+      </p>
+      <div class="ort-knoepfe">
+        <a class="knopf" id="route" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          Route öffnen
+        </a>
+        <button class="knopf" id="adresse" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="1"/><path d="M5 15V5a1 1 0 0 1 1-1h9"/></svg>
+          Adresse kopieren
+        </button>
+        <button class="knopf" id="kalender" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+          Zum Kalender
+        </button>
+      </div>
+      <p class="nur-fuer-screenreader" id="meldung" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- Phase 10 -->
+  <section class="abschnitt weit" aria-labelledby="dress">
+    <div class="bahn">
+      <div class="kopf"><span class="marke" id="dress" data-inhalt="dresscode.marke">What to wear</span></div>
+      <div class="dress">
+        <img class="dress-bild" src="assets/img/dresscode.webp?v=20260820205628"
+             alt="Seide, Schuhe, Fliege, Brosche und eine weiße Rose auf cremefarbenem Stoff"
+             loading="lazy" decoding="async">
+        <div>
+          <h2 class="dress-titel" data-inhalt="dresscode.titel">Summer Elegant</h2>
+          <p class="lauf" data-inhalt="dresscode.text"></p>
+          <div class="palette" id="palette"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 11 -->
+  <section class="abschnitt mittel" aria-labelledby="gtk">
+    <div class="bahn">
+      <div class="kopf"><span class="marke" id="gtk">Good to know</span></div>
+      <div class="wissen" id="wissen"></div>
+    </div>
+  </section>
+
+  <!-- Phase 12 -->
+  <section class="abschnitt weit" aria-labelledby="det">
+    <div class="bahn">
+      <div class="kopf"><span class="marke" id="det">Details of the day</span></div>
+      <div class="galerie" id="galerie"></div>
+    </div>
+  </section>
+
+  <!-- Phase 13 & 14 -->
+  <section class="abschnitt weit rsvp" id="rsvp" aria-labelledby="rsvp-marke">
+    <div class="bahn rsvp-innen">
+      <span class="marke" id="rsvp-marke">RSVP</span>
+
+      <div class="schritt aktiv" data-schritt="1">
+        <h2 class="rsvp-frage">Seid ihr dabei?</h2>
+        <div class="wahl-paar">
+          <button class="wahl" type="button" id="ja"   aria-pressed="false">Wir sind dabei</button>
+          <button class="wahl" type="button" id="nein" aria-pressed="false">Leider nicht</button>
+        </div>
+        <p class="frist">Bitte bis zum <span data-inhalt="rsvp.frist">1. Juni 2027</span>.</p>
+      </div>
+
+      <div class="schritt" data-schritt="2">
+        <h2 class="rsvp-frage">Wie heißt ihr?</h2>
+        <div class="feld">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="Sophie Brandt">
+          <p class="fehler">Bitte tragt euren Namen ein.</p>
+        </div>
+        <div class="schritt-fuss">
+          <button class="zurueck" type="button" data-zurueck>Zurück</button>
+          <button class="knopf knopf-voll" type="button" data-weiter>Weiter</button>
+        </div>
+      </div>
+
+      <div class="schritt" data-schritt="3">
+        <h2 class="rsvp-frage">Mit wie vielen Personen kommt ihr?</h2>
+        <div class="zahlen" id="zahlen"></div>
+        <div class="schritt-fuss">
+          <button class="zurueck" type="button" data-zurueck>Zurück</button>
+          <button class="knopf knopf-voll" type="button" data-weiter>Weiter</button>
+        </div>
+      </div>
+
+      <div class="schritt" data-schritt="4">
+        <h2 class="rsvp-frage">Dürfen wir beim Essen etwas berücksichtigen?</h2>
+        <div class="essen" id="essen">
+          <button type="button" aria-pressed="false">Normal</button>
+          <button type="button" aria-pressed="false">Vegetarisch</button>
+          <button type="button" aria-pressed="false">Vegan</button>
+        </div>
+        <div class="feld">
+          <label for="allergien">Allergien oder Unverträglichkeiten</label>
+          <input id="allergien" type="text" placeholder="Nüsse, Laktose …">
+        </div>
+        <div class="schritt-fuss">
+          <button class="zurueck" type="button" data-zurueck>Zurück</button>
+          <button class="knopf knopf-voll" type="button" data-weiter>Weiter</button>
+        </div>
+      </div>
+
+      <div class="schritt" data-schritt="5">
+        <h2 class="rsvp-frage">Noch eine Nachricht für uns?</h2>
+        <div class="feld">
+          <label for="nachricht">Ganz freiwillig</label>
+          <textarea id="nachricht" placeholder="Wir freuen uns riesig …"></textarea>
+        </div>
+        <div class="schritt-fuss">
+          <button class="zurueck" type="button" data-zurueck>Zurück</button>
+          <button class="knopf knopf-voll" type="button" id="senden">Zusage senden</button>
+        </div>
+      </div>
+
+      <div class="schritt danke" data-schritt="6">
+        <svg class="zweig" viewBox="0 0 100 60" aria-hidden="true">
+          <path d="M4 30 H96"/>
+          <path d="M28 30 c0 -11 8 -18 18 -18 0 11 -8 18 -18 18"/>
+          <path d="M28 30 c0 11 8 18 18 18 0 -11 -8 -18 -18 -18"/>
+          <path d="M62 30 c0 -9 6 -15 14 -15 0 9 -6 15 -14 15"/>
+          <path d="M62 30 c0 9 6 15 14 15 0 -9 -6 -15 -14 -15"/>
+          <circle cx="50" cy="30" r="4"/>
+        </svg>
+        <p class="danke-satz zeige" id="danke-satz">Wie schön.</p>
+        <p class="danke-text" id="danke-text">
+          Wir freuen uns darauf,<br>diesen besonderen Tag mit euch zu feiern.
+        </p>
+        <p class="danke-kuerzel" data-inhalt="paar.kuerzel">S &amp; A</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phase 15 -->
+  <section class="finale" id="finale" aria-labelledby="finale-namen">
+    <video id="finale-video" muted loop playsinline preload="none"
+           poster="assets/img/finale.webp?v=20260820205628" aria-hidden="true"></video>
+    <div class="finale-innen">
+      <p class="finale-namen zeige" id="finale-namen" data-inhalt="paar.namen">Sophie &amp; Alexander</p>
+      <p class="finale-datum" data-inhalt="paar.datumPunkt">24 · 08 · 2027</p>
+      <p class="finale-satz">Wir freuen uns auf euch.</p>
+    </div>
+  </section>
+
+  <!-- Phase 16 -->
+  <footer class="fuss">
+    <p class="kuerzel"><span data-inhalt="paar.kuerzel">S &amp; A</span> · <span data-inhalt="paar.jahr">2027</span></p>
+    <div class="fuss-zeilen">
+      <p class="fuss-rechtlich">
+        <a href="#angaben">Impressum</a><span aria-hidden="true">·</span><a href="#datenschutzhinweis">Datenschutz</a>
+      </p>
+      <p class="fuss-klein" id="angaben" data-inhalt="fuss.verantwortlich"></p>
+      <p class="fuss-klein" id="datenschutzhinweis" data-inhalt="fuss.datenschutz"></p>
+      <p class="fuss-klein" data-inhalt="fuss.demo"></p>
+      <p class="fuss-studio"><a id="studio" href="#" target="_blank" rel="noopener" data-inhalt="fuss.studio">Digital Experience by JP Webstudio</a></p>
+    </div>
+  </footer>
+</main>
+
+<script src="js/inhalt.js?v=20260820205628"></script>
+<script src="js/film.js?v=20260820205628"></script>
+<script src="js/seite.js?v=20260820205628"></script>
+</body>
+</html>

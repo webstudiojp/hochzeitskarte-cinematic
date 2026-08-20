@@ -1,0 +1,264 @@
+/* =========================================================
+   FILM — Umschlag, Kamerafahrt, Uebergang in die Seite
+
+   Alles hier liegt ueber der Seite und verschwindet einmalig.
+   Die Seite darunter hat bereits --grund als Hintergrund; der Film
+   blendet auf denselben Wert aus, deshalb ist beim Wechsel nichts
+   zu sehen - kein Schnitt, kein Aufblitzen.
+   ========================================================= */
+
+.buehne{
+  position:fixed;
+  inset:0;
+  z-index:90;
+  background:var(--grund);
+  overflow:hidden;
+  /* dvh, damit die Leiste von Mobil-Safari nicht hineinragt */
+  height:100dvh;
+}
+.buehne[hidden]{display:none}
+
+/* ---------- 1 · Der Umschlag ---------- */
+
+.umschlag-szene{
+  position:absolute;inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:var(--s-4);
+  /* Sehr ruhiger Verlauf von Papierweiss nach Elfenbein - kein Nebel,
+     sondern das Licht eines Fensters von oben links. */
+  background:
+    radial-gradient(120% 80% at 22% 8%, #fdfaf4 0%, #f6f0e5 42%, #eee5d6 100%);
+  transition:opacity .9s var(--ease-out-quart);
+}
+
+.umschlag{
+  position:relative;
+  width:min(78vw, 30rem);
+  aspect-ratio:1 / 0.66;
+  border:0;
+  padding:0;
+  cursor:pointer;
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  transform:scale(1);
+  transition:transform 1.1s var(--ease-out-expo);
+  filter:drop-shadow(0 26px 44px rgba(58,46,30,.20)) drop-shadow(0 2px 4px rgba(58,46,30,.12));
+}
+.umschlag:hover{transform:scale(1.012)}
+.buehne.oeffnet .umschlag{transform:scale(1.04)}
+
+.umschlag svg{width:100%;height:auto;display:block;perspective:900px;pointer-events:none}
+
+/* Die Lasche klappt um ihre Oberkante auf. */
+.lasche{
+  transform-box:fill-box;
+  transform-origin:50% 0;
+  transform:rotateX(0deg);
+  transition:transform 1.15s var(--ease-in-out-cine);
+}
+.buehne.oeffnet .lasche{transform:rotateX(-172deg)}
+
+/* Die Karte faehrt aus dem Umschlag, dann kommt die Kamera naeher. */
+.karte-blatt{
+  transform:translateY(0) scale(1);
+  transform-box:fill-box;
+  transform-origin:50% 50%;
+  transition:transform 1.5s var(--ease-out-expo);
+}
+.buehne.oeffnet .karte-blatt{transform:translateY(-16%) scale(1.06)}
+
+/* Die Kamerafahrt in die geprägte Rose skaliert den ganzen Umschlag,
+   nicht die Gruppe im SVG: Ein SVG beschneidet an seiner eigenen Box,
+   die Karte waere also in einem Rechteck stecken geblieben.
+   Der Drehpunkt ist die Mitte der Rose. Die Karte ist vorher um 16 %
+   ihrer Hoehe herausgefahren, deshalb liegt die Rose nicht bei 59.8 %
+   der Umschlaghoehe, sondern bei 50 %. */
+.buehne.faehrt-ein .umschlag{
+  transform:scale(11);
+  transform-origin:50% 50.2%;
+  transition:transform 2.3s var(--ease-in-out-cine), filter .5s linear;
+  filter:none;
+}
+.buehne.faehrt-ein .umschlag-huelle{opacity:0;transition:opacity .8s linear}
+.buehne.faehrt-ein .umschlag svg{overflow:visible}
+
+.umschlag-text{
+  margin-top:var(--s-5);
+  text-align:center;
+  transition:opacity .5s linear;
+}
+.buehne.oeffnet .umschlag-text{opacity:0}
+.umschlag-tipp{
+  font-size:var(--t-s);
+  letter-spacing:0.13em;
+  color:var(--tinte-leise);
+}
+/* Ein Puls, der nicht huepft: nur Deckkraft, sehr langsam. */
+.umschlag-tipp{animation:atmen 4.2s var(--ease-in-out-cine) infinite}
+@keyframes atmen{0%,100%{opacity:.55}50%{opacity:1}}
+
+/* ---------- 2 · Der Film ---------- */
+
+.film{
+  position:absolute;inset:0;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .6s linear;
+  background:var(--nacht);
+}
+.buehne.laeuft .film{opacity:1}
+
+/* Hochformat 9:16. Auf breiten Schirmen steht der Film als Buehne in
+   voller Hoehe mittig, dahinter derselbe Film unscharf und dunkel -
+   sonst bliebe von einer 9:16-Fahrt auf 16:9 nichts uebrig. */
+.film-hinten{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  filter:blur(38px) brightness(.5) saturate(.8);
+  transform:scale(1.15);
+}
+.film-vorn{
+  position:absolute;inset:0;
+  margin:auto;
+  height:100%;
+  width:auto;
+  max-width:100%;
+  object-fit:cover;
+}
+@media (max-aspect-ratio:9/16){
+  .film-vorn{width:100%;height:100%}
+  .film-hinten{display:none}
+}
+
+/* Der Titel liegt ueber dem letzten Drittel des Films. */
+.film-titel{
+  position:absolute;
+  left:0;right:0;
+  bottom:14vh;
+  text-align:center;
+  color:#f7f2e8;
+  opacity:0;
+  transform:translateY(14px);
+  text-shadow:0 1px 18px rgba(26,22,17,.5);
+}
+/* Der Titel liegt am Ende auf der hell erleuchteten Fassade. Ohne einen
+   Schleier darunter verschwindet die kleine Vorspannzeile darin. Er reicht
+   bis zum unteren Rand und laeuft nach oben aus, damit man ihn nicht sieht. */
+.film-titel::before{
+  content:"";
+  position:absolute;
+  inset:-34vh -22vw -14vh -22vw;
+  background:linear-gradient(to top,
+    rgba(26,22,17,.74) 0%,
+    rgba(26,22,17,.52) 42%,
+    rgba(26,22,17,0)   100%);
+  z-index:-1;
+  pointer-events:none;
+}
+.film-titel.da{
+  opacity:1;transform:translateY(0);
+  transition:opacity 1.4s var(--ease-out-quart), transform 1.6s var(--ease-out-expo);
+}
+.film-titel .vorspann{
+  display:block;
+  font-size:var(--t-xs);
+  letter-spacing:0.42em;
+  text-transform:uppercase;
+  color:#e6d6b4;
+  margin-bottom:var(--s-3);
+}
+.film-titel .namen{
+  display:block;
+  font-size:clamp(2.6rem, 12vw, 4.6rem);
+  line-height:.98;
+}
+.film-titel .und{
+  display:block;
+  font-size:clamp(1.1rem, 4.4vw, 1.6rem);
+  font-style:italic;
+  color:#e6d6b4;
+  margin:.14em 0;
+}
+.film-titel .wann{
+  display:block;
+  margin-top:var(--s-3);
+  font-size:var(--t-s);
+  letter-spacing:0.26em;
+}
+.film-titel .wo{
+  display:block;
+  margin-top:var(--s-1);
+  font-size:var(--t-xs);
+  letter-spacing:0.32em;
+  text-transform:uppercase;
+  color:#cbbb99;
+}
+
+/* Der Ausklang: eine Flaeche in exakt --grund legt sich ueber den Film.
+   Danach wird die Buehne entfernt - der Gast sieht dieselbe Farbe weiter. */
+.ausklang{
+  position:absolute;inset:0;
+  background:var(--grund);
+  opacity:0;
+  pointer-events:none;
+}
+.buehne.blendet .ausklang{opacity:1;transition:opacity 1.1s var(--ease-out-quart)}
+
+/* ---------- Knoepfe am Rand ---------- */
+
+.film-knoepfe{
+  position:absolute;
+  right:calc(var(--s-3) + env(safe-area-inset-right));
+  top:calc(var(--s-3) + env(safe-area-inset-top));
+  display:flex;
+  gap:var(--s-2);
+  z-index:4;
+  opacity:0;
+  transition:opacity .8s linear;
+}
+.buehne.laeuft .film-knoepfe{opacity:1}
+.film-knopf{
+  display:grid;place-items:center;
+  width:2.6rem;height:2.6rem;
+  border-radius:50%;
+  color:#f2ece1;
+  background:rgba(26,22,17,.42);
+  border:1px solid rgba(242,236,225,.26);
+  backdrop-filter:blur(6px);
+  transition:background .25s var(--ease-out-quart), border-color .25s var(--ease-out-quart);
+}
+.film-knopf:hover{background:rgba(26,22,17,.66);border-color:rgba(242,236,225,.5)}
+.film-knopf svg{width:1.05rem;height:1.05rem;fill:none;stroke:currentColor;stroke-width:1.5}
+.film-ueberspringen{
+  width:auto;
+  padding:0 .95rem;
+  border-radius:1.3rem;
+  font-size:var(--t-xs);
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+}
+
+/* Ein Faden am oberen Rand zeigt, wie weit der Film ist. */
+.film-fortschritt{
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:rgba(242,236,225,.16);
+  z-index:5;
+  opacity:0;transition:opacity .5s linear;
+}
+.buehne.laeuft .film-fortschritt{opacity:1}
+.film-fortschritt span{
+  display:block;height:100%;width:0;
+  background:var(--akzent-hell);
+  transform-origin:0 50%;
+}
+
+/* Wer keine Bewegung will, bekommt den Film gar nicht erst zu sehen. */
+@media (prefers-reduced-motion:reduce){
+  .umschlag,.lasche,.karte-blatt{transition:none}
+  .umschlag-tipp{animation:none;opacity:.8}
+}
